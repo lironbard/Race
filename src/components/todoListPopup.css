@@ -61,3 +61,25 @@
   font-weight: bold;
   padding: 0 10px;
 }
+
+.popup-action {
+  display: flex;
+  justify-content: space-between;
+}
+
+.popup-action button {
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.popup-action .confirm {
+  background: green;
+  color: #fff;
+}
+
+.popup-action .close {
+  background: red;
+  color: #fff;
+}

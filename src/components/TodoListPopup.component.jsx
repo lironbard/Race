@@ -1,34 +1,46 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import "./todoListPopup.css";
 import Calendar from "react-calendar";
 
-const TodoListPopup = ({ date, trigger, handleClose, checkListOriginal, handleCheckDate }) => {
+const TodoListPopup = ({ date, trigger, handleClose, checkListOriginal, updateRaceEvent }) => {
   const [checkList, setCheckList] = useState([]);
-  const [todoList, setTodoList] = useState([]);
 
-  // useEffect(() => {}, [
-  //   setCheckList(
-  //     checkListOriginal || [
-  //       { value: "tyres", date: null, isCalendarOpen: false },
-  //       { value: "food", date: null, isCalendarOpen: false },
-  //       { value: "Change Shock Oils", date: null, isCalendarOpen: false },
-  //       { value: "Beer", date: null, isCalendarOpen: false },
-  //       { value: "Sandwich", date: null, isCalendarOpen: false },
-  //     ]
-  //   ),
-  // ]);
+  useEffect(() => {
+    if (date) {
+      setCheckList(
+        checkListOriginal || [
+          { id: 1, value: "tyres", date: null, isCalendarOpen: false },
+          { id: 2, value: "food", date: null, isCalendarOpen: false },
+          { id: 3, value: "Change Shock Oils", date: null, isCalendarOpen: false },
+          { id: 4, value: "Beer", date: null, isCalendarOpen: false },
+          { id: 5, value: "Sandwich", date: null, isCalendarOpen: false },
+        ]
+      );
+    }
+  }, [date]);
+
+  function handleConfirm() {
+    updateRaceEvent(date, checkList);
+    handleClose();
+  }
 
   if (!trigger) {
     return null;
   }
 
+  const deleteTask = (indexCheckListItem) => {
+    const newCL = checkList.filter((v, iv) => {
+      return iv !== indexCheckListItem;
+    });
+
+    setCheckList(newCL);
+  };
+
   return (
     <div className="popup">
       <div className="popup-inner">
         <h1>{date}</h1>
-        <button className="close-btn" onClick={handleClose}>
-          Close
-        </button>
+
         <ul>
           {checkList.map((checkListItem, indexCheckListItem) => (
             <li key={indexCheckListItem}>
@@ -49,30 +61,40 @@ const TodoListPopup = ({ date, trigger, handleClose, checkListOriginal, handleCh
                     });
 
                     setCheckList(newCheckListItem);
-                    handleCheckDate(date, newCheckListItem);
                   }}
                   value={checkListItem.date || null}
                 />
               ) : (
-                <div
-                  onClick={() => {
-                    const newCheckListItem = checkList.map((v, i) => {
-                      if (i === indexCheckListItem) {
-                        return { ...v, isCalendarOpen: true };
-                      }
-                      return { ...v, isCalendarOpen: false };
-                    });
-
-                    setCheckList(newCheckListItem);
-                  }}
-                  className="date"
-                >
-                  {checkListItem.date || "Please set date"}
-                </div>
+                <Fragment>
+                  <button onClick={() => deleteTask(indexCheckListItem)}>Delete</button>
+                  <div
+                    onClick={() => {
+                      const newCheckListItem = checkList.map((v, i) => {
+                        if (i === indexCheckListItem) {
+                          return { ...v, isCalendarOpen: true };
+                        }
+                        return { ...v, isCalendarOpen: false };
+                      });
+                      console.log(indexCheckListItem);
+                      setCheckList(newCheckListItem);
+                    }}
+                    className="date"
+                  >
+                    {checkListItem.date || "Please set date"}
+                  </div>
+                </Fragment>
               )}
             </li>
           ))}
         </ul>
+        <div className="popup-action">
+          <button className="confirm" onClick={handleConfirm}>
+            Confirm
+          </button>
+          <button className="close" onClick={handleClose}>
+            Close
+          </button>
+        </div>
       </div>
     </div>
   );
