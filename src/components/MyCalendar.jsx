@@ -35,7 +35,7 @@ function MyCalendar(props) {
 
   return (
     <div>
-      <TodoListPopup checkListOriginal={raceEvents[activeDate]} updateRaceEvent={updateRaceEvent} trigger={buttonPopUp} date={activeDate} handleClose={() => setButtonPopUp(false)} />
+      <TodoListPopup updateRaceEvent={updateRaceEvent} checkListOriginal={raceEvents[activeDate]} trigger={buttonPopUp} date={activeDate} handleClose={() => setButtonPopUp(false)} />
 
       <Calendar
         calendarType="US"
@@ -71,7 +71,7 @@ function MyCalendar(props) {
                     <li>
                       <div>{value}</div>
                       <div>{checkListDate}</div>
-                      <button onClick={() => handleDeleteRaceTask(raceEventsDate, indexTask)}>Delete Race</button>
+                      <button onClick={() => handleDeleteRaceTask(raceEventsDate, indexTask)}>Delete Task</button>
                     </li>
                   ))}
                 </ul>
