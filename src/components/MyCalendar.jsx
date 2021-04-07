@@ -34,52 +34,61 @@ function MyCalendar(props) {
   }
 
   return (
-    <div>
-      <TodoListPopup updateRaceEvent={updateRaceEvent} checkListOriginal={raceEvents[activeDate]} trigger={buttonPopUp} date={activeDate} handleClose={() => setButtonPopUp(false)} />
+    <div className="body">
+      <div className="calendar">
+        <TodoListPopup
+          updateRaceEvent={updateRaceEvent}
+          checkListOriginal={raceEvents[activeDate]}
+          trigger={buttonPopUp}
+          date={activeDate}
+          handleClose={() => setButtonPopUp(false)}
+          // PopUp End
+        />
 
-      <Calendar
-        calendarType="US"
-        onChange={setValue}
-        onClickDay={(value, event) => {
-          setIsInput((isInput) => !isInput);
-          event.currentTarget.firstElementChild.classList.toggle("selectedDay");
-          props.setDatesList((datesList) => {
-            const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
-            const stringDate = new Date(value).toLocaleDateString("en-GB", options);
-            setActiveDate(stringDate);
-            const dayDetails = { id: lastId + 1, date: stringDate };
-            setLastId(lastId + 1);
-            return [...datesList, dayDetails];
-          });
-          setButtonPopUp(true);
-          console.dir(value);
-        }}
-        value={value}
-      />
-      {value && <input type="text" />}
+        <Calendar
+          calendarType="US"
+          onChange={setValue}
+          onClickDay={(value, event) => {
+            setIsInput((isInput) => !isInput);
+            event.currentTarget.firstElementChild.classList.toggle("selectedDay");
+            props.setDatesList((datesList) => {
+              const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+              const stringDate = new Date(value).toLocaleDateString("en-GB", options);
+              setActiveDate(stringDate);
+              const dayDetails = { id: lastId + 1, date: stringDate };
+              setLastId(lastId + 1);
+              return [...datesList, dayDetails];
+            });
+            setButtonPopUp(true);
+            console.dir(value);
+          }}
+          value={value}
+        />
+        {/* {value && <input type="text" />} */}
 
-      <div>
-        <h1>Race Events</h1>
-        <ul className="cards">
-          {raceEventsDates.map((raceEventsDate) => (
-            <li>
-              <div>date: {raceEventsDate}</div>
-              <div>
-                Check List
-                <ul>
-                  {raceEvents[raceEventsDate].map(({ value, date: checkListDate }, indexTask) => (
-                    <li>
-                      <div>{value}</div>
-                      <div>{checkListDate}</div>
-                      <button onClick={() => handleDeleteRaceTask(raceEventsDate, indexTask)}>Delete Task</button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <button onClick={() => handleDeleteRace(raceEventsDate)}>Delete Race</button>
-            </li>
-          ))}
-        </ul>
+        <div>
+          <h1 className="raceTitle">Race Events</h1>
+          <ul className="cards">
+            {raceEventsDates.map((raceEventsDate) => (
+              <li>
+                <div>date: {raceEventsDate}</div>
+                <div>
+                  Check List
+                  <ul>
+                    {raceEvents[raceEventsDate].map(({ value, date: checkListDate }, indexTask) => (
+                      <li>
+                        <div>{value}</div>
+                        <div>{checkListDate}</div>
+                        <button onClick={() => handleDeleteRaceTask(raceEventsDate, indexTask)}>Delete Task</button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <button onClick={() => handleDeleteRace(raceEventsDate)}>Delete Race</button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

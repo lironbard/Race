@@ -2,6 +2,20 @@
   font-weight: 900;
 }
 
+.body {
+  background-image: url("car1.jpg");
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+
+.calendar {
+  margin-left: 42%;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+
 .cards {
   display: flex;
   justify-content: space-between;
@@ -17,4 +31,8 @@
   padding: 20px;
   box-shadow: 0 0 10px 0 #000;
   margin: 20px;
+}
+
+.raceTitle {
+  margin-left: 10%;
 }
