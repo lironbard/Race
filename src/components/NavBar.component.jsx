@@ -10,7 +10,7 @@ const NavBar = () => {
   };
 
   const styleItem = {
-    marginLeft: "50%",
+    marginLeft: "48%",
   };
 
   return (

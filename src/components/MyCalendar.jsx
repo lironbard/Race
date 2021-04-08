@@ -67,7 +67,7 @@ function MyCalendar(props) {
         {/* {value && <input type="text" />} */}
 
         <div>
-          <h1 className="raceTitle">Race Events</h1>
+          <h1 className="raceTitle">Race Events:</h1>
           <ul className="cards">
             {raceEventsDates.map((raceEventsDate) => (
               <li>
